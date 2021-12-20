@@ -1,0 +1,42 @@
+CREATE DATABASE MeemupankkiVX;
+
+CREATE TABLE `Käyttäjät` (
+  `KäyttäjäID` int(11) NOT NULL,
+  `KäyttäjäNimi` varchar(255) NOT NULL,
+  `Salasana` text NOT NULL,
+  `Sposti` varchar(255) NOT NULL,
+  `PuhelinNo` int(11) NOT NULL,
+  `Rooli` varchar(40) NOT NULL,
+  `Online` int(11) NOT NULL,
+  `Profiilikuva` text NOT NULL,
+  `Liittymispv` date NOT NULL,
+  `UploadID` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO Käyttäjät (`KäyttäjäID`, `KäyttäjäNimi`, `Salasana`, `Sposti`, `PuhelinNo`, `Rooli`, `Online`, `Profiilikuva`, `Liittymispv`, `UploadID`)
+VALUES ('1', 'Frank', 'asdf', 'frankgib@meemu.fi', '0401231234', 'Admin', '1', 'http://placekitten.com/400/300', '2010-08-04', '5'),
+('2', 'James', 'qwer', 'jamesdan@meemu.fi', '0403211234', 'Käyttäjä', '0', 'http://placekitten.com/400/302', '2011-10-07', '2');
+
+
+CREATE TABLE `Sisältö` (
+  `UploadNo` int(11) NOT NULL,
+  `Tykkäykset` text NOT NULL,
+  `Kommentit` text NOT NULL,
+  `KäyttäjäID` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO Sisältö (`UploadNo`, `Tykkäykset`, `Kommentit`, `KäyttäjäID`)
+VALUES ('132', '123', '65', '1'),
+('223', '1234', '4343', '2'),
+('32', '5678', '4321', '3');
+
+
+
+ALTER TABLE `Käyttäjät`
+  ADD PRIMARY KEY (`KäyttäjäID`);
+
+ALTER TABLE `Sisältö`
+  ADD PRIMARY KEY (`UploadNo`);
+
+
+
