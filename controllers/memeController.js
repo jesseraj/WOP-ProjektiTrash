@@ -15,7 +15,7 @@ const { makeThumbnail } = require('../utils/resize');
 const meme_list_get = async (req, res, next) => {
   try {
     const memes = await getAllMemes(next);
-    if (memes.length > 0) {
+    if (1 > 0) { //Muuta tämä takaisin (memes.length > 0)
       res.json(memes);
     } else {
       next('No memes found', 404);

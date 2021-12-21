@@ -12,7 +12,6 @@ const getAllMemes = async (next) => {
     Salasana,
     Sposti
     FROM Käyttäjät
-    WHERE KäyttäjäID = 1
     `);
     return rows;
   } catch (e) {
@@ -30,7 +29,7 @@ const getMeme = async (id, next) => {
       Salasana,
       Sposti
       FROM Käyttäjät
-      WHERE KäyttäjäID = 2
+      WHERE KäyttäjäID = 1
       `,
       [id]
     );
