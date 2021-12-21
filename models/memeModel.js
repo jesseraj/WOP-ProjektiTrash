@@ -3,15 +3,12 @@ const pool = require('../database/db');
 const { httpError } = require('../utils/errors');
 const promisePool = pool.promise();
 
-const getAllMemes = async (next) => {
+const getAllMemes = async (next) => { //Tämä toimiii localhost:5000/meme
   try {
     const [rows] = await promisePool.execute(`
-	SELECT 
-	KäyttäjäID,
-    KäyttäjäNimi,
-    Salasana,
-    Sposti
-    FROM Käyttäjät
+    SELECT 
+      *
+      FROM Käyttäjät
     `);
     return rows;
   } catch (e) {
@@ -27,7 +24,13 @@ const getMeme = async (id, next) => {
       KäyttäjäID,
       KäyttäjäNimi,
       Salasana,
-      Sposti
+      Sposti,
+      PuhelinNo,
+      Rooli,
+      Online,
+      Profiilikuva,
+      Liittymispv,
+      UploadID
       FROM Käyttäjät
       WHERE KäyttäjäID = 1
       `,
@@ -41,18 +44,13 @@ const getMeme = async (id, next) => {
 };
 
 const addMeme = async (
-  name,
-  weight,
-  owner,
-  birthdate,
-  filename,
-  coords,
+  KäyttäjäNimi,
   next
 ) => {
   try {
     const [rows] = await promisePool.execute(
-      'INSERT INTO wop_meme (name, weight, owner, filename, birthdate, coords) VALUES (?, ?, ?, ?, ?, ?)',
-      [name, weight, owner, filename, birthdate, coords]
+      'INSERT INTO Käyttäjät (KäyttäjäNimi) VALUES (asd)',
+      [KäyttäjäNimi]
     );
     return rows;
   } catch (e) {

@@ -15,7 +15,7 @@ const { makeThumbnail } = require('../utils/resize');
 const meme_list_get = async (req, res, next) => {
   try {
     const memes = await getAllMemes(next);
-    if (1 > 0) { //Muuta tämä takaisin (memes.length > 0)
+    if (memes.length > 0) {
       res.json(memes);
     } else {
       next('No memes found', 404);
@@ -49,18 +49,6 @@ const meme_post = async (req, res, next) => {
     return;
   }
 
-  if (!req.file) {
-    const err = httpError('file not valid', 400);
-    next(err);
-    return;
-  }
-
-  try {
-    const coords = await getCoordinates(req.file.path);
-    req.body.coords = coords;
-  } catch (e) {
-    req.body.coords = [24.74, 60.24];
-  }
 
   try {
     const thumb = await makeThumbnail(
@@ -68,15 +56,11 @@ const meme_post = async (req, res, next) => {
       './thumbnails/' + req.file.filename
     );
 
-    const { name, birthdate, weight, coords } = req.body;
+    const { Nimi, Desc } = req.body;
 
     const tulos = await addMeme(
-      name,
-      weight,
-      req.user.user_id,
-      birthdate,
-      req.file.filename,
-      JSON.stringify(coords),
+      Nimi,
+      Desc,
       next
     );
     if (thumb) {
@@ -114,12 +98,8 @@ const meme_put = async (req, res, next) => {
     const owner = req.user.role === 0 ? req.body.owner : req.user.user_id;
 
     const tulos = await modifyMeme(
-      name,
-      weight,
-      owner,
-      birthdate,
-      req.params.id,
-      req.user.role,
+      Nimi,
+      Desc,
       next
     );
     if (tulos.affectedRows > 0) {
